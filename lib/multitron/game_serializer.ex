@@ -14,10 +14,14 @@ defmodule Multitron.GameSerializer do
 
   defp serialize_player(%Game{} = game, player_id) do
     {name, color, x, y, direction} = game.players[player_id]
+    positions = case game.positions[player_id] do
+      nil -> nil
+      list -> Enum.map(list, fn {x, y} -> [x, y] end)
+    end
 
     %{name: name,
       color: color,
       vector: [x, y, direction],
-      positions: Enum.map(game.positions[player_id], fn {x, y} -> [x, y] end)}
+      positions: positions}
   end
 end

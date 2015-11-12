@@ -1,4 +1,5 @@
 defmodule Multitron.GameServer do
+  require Logger
   use GenServer
   alias Multitron.Game
   alias Multitron.GameSerializer
@@ -6,6 +7,7 @@ defmodule Multitron.GameServer do
   @interval 1_000
 
   def start_link() do
+    Logger.info("Starting GameServer...")
     spawn_link(fn -> schedule_tick end)
     {:ok, _pid} = Agent.start_link(fn -> %Game{} end, name: __MODULE__)
   end

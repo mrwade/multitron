@@ -11,15 +11,22 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <GameListener>
-          {game =>
-            <div>{JSON.stringify(game)}</div>
-          }
-        </GameListener>
-        {this.renderJoin()}
-      </div>
+      <GameListener>
+        {game =>
+          <div>
+            {JSON.stringify(game)}
+            {this.renderCurrentView(game)}
+          </div>
+        }
+      </GameListener>
     );
+  }
+
+  renderCurrentView(game) {
+    if (game.players[GameSocket.getPlayerId()])
+      return <div>Joined!</div>;
+    else
+      return this.renderJoin();
   }
 
   renderJoin() {
@@ -27,7 +34,8 @@ export default class App extends React.Component {
   }
 
   onJoin(name) {
-    const { playerId } = GameSocket;
-    GameSocket.channel.push('join', { id: playerId, name });
+    GameSocket.channel
+    .push('join', { name })
+    .receive('ok', ({ player_id }) => GameSocket.setPlayerId(player_id));
   }
 }

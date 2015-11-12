@@ -1,18 +1,25 @@
 defmodule Multitron.GameChannel do
   use Multitron.Web, :channel
   alias Multitron.GameServer
+  alias Multitron.IdServer
 
   def join("game:lobby", payload, socket) do
     if authorized?(payload) do
+      IdServer.generate_id(socket.transport)
       {:ok, socket}
     else
       {:error, %{reason: "unauthorized"}}
     end
   end
 
-  def handle_in("join", %{"id" => id, "name" => name}, socket) do
-    GameServer.add_player(id, {name, '#f00', 100, 100, :right})
-    {:noreply, socket}
+  # def terminate(_reason, socket) do
+  #
+  # end
+
+  def handle_in("join", %{"name" => name}, socket) do
+    player_id = IdServer.get_id(socket.transport)
+    GameServer.add_player(player_id, {name, '#f00', 100, 100, :right})
+    {:reply, {:ok, %{"player_id" => player_id}}, socket}
   end
 
   # Channels can be used in a request/response fashion

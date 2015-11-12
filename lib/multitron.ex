@@ -12,6 +12,7 @@ defmodule Multitron do
       # Start the Ecto repository
       worker(Multitron.Repo, []),
       # Here you could define other workers and supervisors as children
+      worker(Multitron.IdServer, []),
       worker(Multitron.GameServer, [])
     ]
 
