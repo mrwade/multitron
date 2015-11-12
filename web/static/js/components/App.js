@@ -12,8 +12,6 @@ export default class App extends React.Component {
         {game =>
           <div>
             {this.renderCurrentView(game)}
-            <br />
-            {JSON.stringify(game)}
           </div>
         }
       </GameListener>

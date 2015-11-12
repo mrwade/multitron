@@ -38,7 +38,7 @@ export default class Board extends React.Component {
         {_.map(game.players, (player, id) =>
           <div key={id} style={{ position: 'relative' }}>
             {_.map(player.positions, (position, i) =>
-              <div key={i} style={this.styleForPosition(position)} />
+              <div key={i} style={this.styleForPosition(player, position)} />
             )}
           </div>
         )}
@@ -46,10 +46,10 @@ export default class Board extends React.Component {
     );
   }
 
-  styleForPosition(position) {
+  styleForPosition(player, position) {
     const [left, top] = position;
     return {
-      background: 'red',
+      background: player.color,
       left: left * SCALE,
       height: SCALE,
       position: 'absolute',
