@@ -2,7 +2,7 @@ defmodule Multitron.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "rooms:*", Multitron.RoomChannel
+  channel "game:lobby", Multitron.GameChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket

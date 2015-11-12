@@ -19,7 +19,7 @@ defmodule Multitron.Game do
       positions: Map.delete(game.positions, player_id)}
   end
 
-  def change_player_direction(game, player_id, direction) do
+  def update_player_direction(game, player_id, direction) do
     {name, color, x, y, _} = game.players[player_id]
     players = Map.put(game.players, player_id, {name, color, x, y, direction})
     %{game | players: players}

@@ -12,7 +12,7 @@ defmodule Multitron do
       # Start the Ecto repository
       worker(Multitron.Repo, []),
       # Here you could define other workers and supervisors as children
-      # worker(Multitron.Worker, [arg1, arg2, arg3]),
+      worker(Multitron.GameServer, [])
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html
