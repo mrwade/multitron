@@ -2,7 +2,9 @@ defmodule Multitron.GameSerializer do
   alias Multitron.Game
 
   def serialize(%Game{} = game) do
-    %{players: serialize_players(game)}
+    {width, height} = game.board_size
+    %{board_size: [width, height],
+      players: serialize_players(game)}
   end
 
   defp serialize_players(%Game{} = game) do

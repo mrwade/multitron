@@ -1,5 +1,5 @@
 defmodule Multitron.Game do
-  defstruct boardSize: {200, 200}, players: %{}, positions: %{}
+  defstruct board_size: {200, 200}, players: %{}, positions: %{}
 
   @doc ~S"""
   ## Examples
@@ -17,6 +17,14 @@ defmodule Multitron.Game do
     %{game |
       players: Map.delete(game.players, player_id),
       positions: Map.delete(game.positions, player_id)}
+  end
+
+  def spawn_player(game, player_id) do
+    {name, color, _, _, direction} = game.players[player_id]
+    players = Map.put(game.players, player_id, {name, color, 100, 100, direction})
+    %{game |
+      players: players,
+      positions: Map.put(game.positions, player_id, [])}
   end
 
   def update_player_direction(game, player_id, direction) do
@@ -63,9 +71,11 @@ defmodule Multitron.Game do
   end
 
   def next_positions(game) do
-    game.players
-    |> Map.to_list
-    |> Enum.map(fn {player_id, player} -> {player_id, next_position(player)} end)
+    Map.keys(game.positions)
+    |> Enum.map(fn player_id ->
+      player = game.players[player_id]
+      {player_id, next_position(player)}
+    end)
     |> Enum.into(%{})
   end
 
@@ -153,23 +163,23 @@ defmodule Multitron.Game do
   ## Examples
 
       iex> Multitron.Game.inside_board?(
-      ...>   %Multitron.Game{boardSize: {200, 200}},
+      ...>   %Multitron.Game{board_size: {200, 200}},
       ...>   {100, 100})
       true
 
       iex> Multitron.Game.inside_board?(
-      ...>   %Multitron.Game{boardSize: {200, 200}},
+      ...>   %Multitron.Game{board_size: {200, 200}},
       ...>   {250, 100})
       false
 
       iex> Multitron.Game.inside_board?(
-      ...>   %Multitron.Game{boardSize: {200, 200}},
+      ...>   %Multitron.Game{board_size: {200, 200}},
       ...>   {100, -100})
       false
 
   """
   def inside_board?(game, {x, y}) do
-    {width, height} = game.boardSize
+    {width, height} = game.board_size
     x >= 0 && x <= width - 1 && y >= 0 && y <= height - 1
   end
 

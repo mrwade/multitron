@@ -1,21 +1,19 @@
 import React from 'react';
 import * as GameSocket from '../game-socket';
 import GameListener from './GameListener';
+import Board from './Board';
 import Join from './Join';
 import styles from './App.scss';
 
 export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <GameListener>
         {game =>
           <div>
-            {JSON.stringify(game)}
             {this.renderCurrentView(game)}
+            <br />
+            {JSON.stringify(game)}
           </div>
         }
       </GameListener>
@@ -24,9 +22,13 @@ export default class App extends React.Component {
 
   renderCurrentView(game) {
     if (game.players[GameSocket.getPlayerId()])
-      return <div>Joined!</div>;
+      return this.renderBoard(game);
     else
       return this.renderJoin();
+  }
+
+  renderBoard(game) {
+    return <Board game={game} />;
   }
 
   renderJoin() {

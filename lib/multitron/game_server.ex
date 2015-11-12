@@ -4,7 +4,7 @@ defmodule Multitron.GameServer do
   alias Multitron.Game
   alias Multitron.GameSerializer
 
-  @interval 1_000
+  @interval 50
 
   def start_link() do
     Logger.info("Starting GameServer...")
@@ -28,9 +28,15 @@ defmodule Multitron.GameServer do
     end)
   end
 
+  def spawn_player(player_id) do
+    Agent.update(__MODULE__, fn game ->
+      Game.spawn_player(game, player_id)
+    end)
+  end
+
   def update_player_direction(player_id, direction) do
     Agent.update(__MODULE__, fn game ->
-      Game.update_player_direction(game, player_id)
+      Game.update_player_direction(game, player_id, direction)
     end)
   end
 
