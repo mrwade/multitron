@@ -1,7 +1,7 @@
 import React from 'react';
 import * as GameSocket from '../game-socket';
 import GameListener from './GameListener';
-import Board from './Board';
+import Play from './Play';
 import Join from './Join';
 import styles from './App.scss';
 
@@ -22,13 +22,13 @@ export default class App extends React.Component {
 
   renderCurrentView(game) {
     if (game.players[GameSocket.getPlayerId()])
-      return this.renderBoard(game);
+      return this.renderPlay(game);
     else
       return this.renderJoin();
   }
 
-  renderBoard(game) {
-    return <Board game={game} />;
+  renderPlay(game) {
+    return <Play game={game} />;
   }
 
   renderJoin() {

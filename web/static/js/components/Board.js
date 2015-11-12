@@ -1,3 +1,4 @@
+import classNames from 'classnames';
 import React from 'react';
 import _ from 'underscore';
 import { channel } from '../game-socket';
@@ -32,7 +33,8 @@ export default class Board extends React.Component {
     const [width, height] = game.board_size;
 
     return (
-      <div className={styles.board} style={{ width: width * SCALE, height: height * SCALE }}>
+      <div className={classNames(this.props.className, styles.board)}
+        style={{ width: width * SCALE, height: height * SCALE }}>
         {_.map(game.players, (player, id) =>
           <div key={id} style={{ position: 'relative' }}>
             {_.map(player.positions, (position, i) =>
