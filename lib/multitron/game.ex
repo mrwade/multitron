@@ -22,8 +22,8 @@ defmodule Multitron.Game do
   def spawn_player(game, player_id) do
     {width, height} = game.board_size
     {name, color, _, _, direction} = game.players[player_id]
-    player = {name, color, :random.uniform * width, :random.uniform * height,
-      direction}
+    player = {name, color, round(:random.uniform * width),
+      round(:random.uniform * height), direction}
 
     players = Map.put(game.players, player_id, player)
     %{game |
