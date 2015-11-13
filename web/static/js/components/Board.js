@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
 import _ from 'underscore';
-import { channel } from '../game-socket';
+import { channel, getPlayerId } from '../game-socket';
 import styles from './Board.scss';
 
 const SCALE = 5;
@@ -42,8 +42,15 @@ export default class Board extends React.Component {
             )}
           </div>
         )}
+        {this.renderInstruction()}
       </div>
     );
+  }
+
+  renderInstruction() {
+    const { game } = this.props;
+    if (!game.players[getPlayerId()].positions)
+      return <div className={styles.instruction}>Press [space] to start</div>;
   }
 
   styleForPosition(player, position) {

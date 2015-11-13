@@ -1,4 +1,15 @@
 .board {
   background: #111;
   border: 1px solid blue;
+  position: relative;
+}
+
+.instruction {
+  color: #fff;
+  font-size: 32px;
+  left: 0;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 33%;
 }

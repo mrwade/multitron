@@ -1,10 +1,12 @@
+@import "../../../../node_modules/bourbon/app/assets/stylesheets/bourbon";
+
 :global html, :global body {
   margin: 0;
   padding: 0;
 }
 
 :global body {
-  background: #000;
+  @include linear-gradient(#000, rgba(#00f, 0.15));
   color: #fff;
   font-family: 'VT323';
 }
