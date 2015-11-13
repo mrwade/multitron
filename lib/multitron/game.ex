@@ -1,5 +1,5 @@
 defmodule Multitron.Game do
-  defstruct board_size: {140, 100}, players: %{}, positions: %{}
+  defstruct board_size: {120, 90}, players: %{}, positions: %{}
 
   @doc ~S"""
   ## Examples
