@@ -5,8 +5,7 @@ export default class Join extends React.Component {
   render() {
     return (
       <div>
-        Nickname:
-        <input type="text" onKeyUp={::this.onKeyUp} />
+        Nickname: <input type="text" onKeyUp={::this.onKeyUp} />
       </div>
     );
   }

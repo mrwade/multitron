@@ -1,20 +1,30 @@
+import raf from 'raf';
 import React from 'react';
+import _ from 'underscore';
 import DataSocket from '../data-socket';
 
 const channel = 'game:lobby';
 
 export default class GameListener extends React.Component {
-  componentWillMount() {
+  constructor(props) {
+    super(props);
+    this.state = {};
+    _.bindAll(this, 'queueRender');
+  }
+
+  componentDidMount() {
+    raf(this.queueRender);
     this.subscribe();
   }
 
   componentWillUnmount() {
     this.unsubscribe();
+    raf.cancel(this.queueRender);
   }
 
   subscribe() {
     this.unsubscribe();
-    this.channelUnsub = DataSocket.subscribe(channel, () => this.queueRender());
+    this.channelUnsub = DataSocket.subscribe(channel, function() {});
   }
 
   unsubscribe() {
@@ -22,12 +32,16 @@ export default class GameListener extends React.Component {
   }
 
   queueRender() {
-    this.setState({});
+    let data = DataSocket.getState(channel);
+    if (this.lastData != data) {
+      this.setState({ data });
+      this.lastData = data;
+    }
+    raf(this.queueRender);
   }
 
   render() {
-    let data = DataSocket.getState(channel);
-
+    const { data } = this.state;
     if (data) {
       return this.props.children(data);
     } else {

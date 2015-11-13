@@ -49,8 +49,13 @@ export default class Board extends React.Component {
 
   renderInstruction() {
     const { game } = this.props;
-    if (!game.players[getPlayerId()].positions)
-      return <div className={styles.instruction}>Press [space] to start</div>;
+    if (!game.players[getPlayerId()].positions) {
+      return (
+        <div key="instruction" className={styles.instruction}>
+          Press [space] to start
+        </div>
+      );
+    }
   }
 
   styleForPosition(player, position) {

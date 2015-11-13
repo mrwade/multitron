@@ -12,6 +12,7 @@
     "fastclick": "^1.0.6",
     "node-sass": "^3.4.1",
     "postcss-loader": "^0.7.0",
+    "raf": "^3.1.0",
     "react": "^0.14.1",
     "react-dom": "^0.14.1",
     "react-motion": "^0.3.1",
