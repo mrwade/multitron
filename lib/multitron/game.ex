@@ -5,8 +5,8 @@ defmodule Multitron.Game do
   ## Examples
 
       iex> Multitron.Game.add_player(%Multitron.Game{}, "p1",
-      ...>   {0, "kevin", 10, 10, :up})
-      %Multitron.Game{players: %{"p1" => {0, "kevin", 10, 10, :up}}}
+      ...>   {"kevin", "#f00", 10, 10, :up})
+      %Multitron.Game{players: %{"p1" => {"kevin", "#f00", 10, 10, :up}}}
 
   """
   def add_player(game, player_id, {_name, _color, _x, _y, _direction} = player) do
@@ -42,28 +42,25 @@ defmodule Multitron.Game do
 
       iex> Multitron.Game.tick(
       ...>   %Multitron.Game{players: %{
-      ...>     "p1" => {0, "kevin", 10, 10, :up},
-      ...>     "p2" => {0, "eric", 5, 5, :right}}})
+      ...>     "p1" => {"kevin", "#f00", 10, 10, :up},
+      ...>     "p2" => {"eric", "#0f0", 5, 5, :right}}})
       %Multitron.Game{
         players: %{
-          "p1" => {0, "kevin", 10, 9, :up},
-          "p2" => {0, "eric", 6, 5, :right}},
-        positions: %{
-          "p1" => [{10, 9}],
-          "p2" => [{6, 5}]}}
+          "p1" => {"kevin", "#f00", 10, 10, :up},
+          "p2" => {"eric", "#0f0", 5, 5, :right}}}
 
       iex> Multitron.Game.tick(
       ...>   %Multitron.Game{
       ...>     players: %{
-      ...>       "p1" => {0, "kevin", 7, 6, :down},
-      ...>       "p2" => {0, "eric", 6, 5, :right}},
+      ...>       "p1" => {"kevin", "#f00", 7, 6, :down},
+      ...>       "p2" => {"eric", "#0f0", 6, 5, :right}},
       ...>     positions: %{
       ...>       "p1" => [{7, 6}, {7, 5}, {7, 4}],
       ...>       "p2" => [{6, 5}]}})
       %Multitron.Game{
         players: %{
-          "p1" => {0, "kevin", 7, 7, :down},
-          "p2" => {0, "eric", 6, 5, :right}},
+          "p1" => {"kevin", "#f00", 7, 7, :down},
+          "p2" => {"eric", "#0f0", 6, 5, :right}},
         positions: %{
           "p1" => [{7, 7}, {7, 6}, {7, 5}, {7, 4}]}}
 
@@ -191,8 +188,10 @@ defmodule Multitron.Game do
   ## Examples
 
       iex> Multitron.Game.position_occupied?(
-      ...>   %Multitron.Game{positions: %{"p1" => [{5, 5}]}},
-      ...>   {5, 5})
+      ...>   %Multitron.Game{positions: %{
+      ...>     "p1" => [{5, 5}, {4, 4}, {3, 3}],
+      ...>     "p2" => [{8, 8}]}},
+      ...>   {4, 4})
       true
 
       iex> Multitron.Game.position_occupied?(
