@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
+import { Group, Layer, Surface } from 'react-canvas';
 import _ from 'underscore';
 import { channel, getPlayerId } from '../game-socket';
 import styles from './Board.scss';
@@ -31,17 +32,21 @@ export default class Board extends React.Component {
   render() {
     const { game } = this.props;
     const [width, height] = game.board_size;
+    const boardStyle = { width: width * SCALE, height: height * SCALE };
 
     return (
       <div className={classNames(this.props.className, styles.board)}
-        style={{ width: width * SCALE, height: height * SCALE }}>
-        {_.map(game.players, (player, id) =>
-          <div key={id} style={{ position: 'relative' }}>
-            {_.map(player.positions, (position, i) =>
-              <div key={i} style={this.styleForPosition(player, position)} />
-            )}
-          </div>
-        )}
+        style={boardStyle}>
+        <Surface {...boardStyle} left={0} top={0}>
+          {_.map(game.players, (player, id) =>
+            <Group key={id}>
+              {_.map(player.positions, (position, i) =>
+                <Layer key={i}
+                  style={this.styleForPosition(player, position)} />
+              )}
+            </Group>
+          )}
+        </Surface>
         {this.renderInstruction()}
       </div>
     );
@@ -59,14 +64,14 @@ export default class Board extends React.Component {
   }
 
   styleForPosition(player, position) {
+    const retinaCorrection = 1.05;
     const [left, top] = position;
     return {
-      background: player.color,
+      backgroundColor: player.color,
       left: left * SCALE,
-      height: SCALE,
-      position: 'absolute',
+      height: SCALE * retinaCorrection,
       top: top * SCALE,
-      width: SCALE
+      width: SCALE * retinaCorrection
     };
   }
 
