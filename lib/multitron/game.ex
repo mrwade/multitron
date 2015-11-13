@@ -22,7 +22,8 @@ defmodule Multitron.Game do
   def spawn_player(game, player_id) do
     {width, height} = game.board_size
     {name, color, _, _, direction} = game.players[player_id]
-    player = {name, color, round(width/2), round(height/2), direction}
+    player = {name, color, :random.uniform * width, :random.uniform * height,
+      direction}
 
     players = Map.put(game.players, player_id, player)
     %{game |
@@ -204,5 +205,11 @@ defmodule Multitron.Game do
     Enum.any?(Map.values(game.positions), fn positions ->
       Enum.any?(positions, &(&1 == position))
     end)
+  end
+
+  def random_color do
+    ["#f00","#0f0","#00f","#ff0","#0ff","#f0f","#fff"]
+    |> Enum.take_random(1)
+    |> List.first
   end
 end

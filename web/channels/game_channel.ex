@@ -1,5 +1,6 @@
 defmodule Multitron.GameChannel do
   use Multitron.Web, :channel
+  alias Multitron.Game
   alias Multitron.GameServer
   alias Multitron.IdServer
 
@@ -19,7 +20,7 @@ defmodule Multitron.GameChannel do
 
   def handle_in("join", %{"name" => name}, socket) do
     player_id = IdServer.get_id(socket.transport_pid)
-    GameServer.add_player(player_id, {name, "#f00", 100, 100, :right})
+    GameServer.add_player(player_id, {name, Game.random_color, 100, 100, :right})
     {:reply, {:ok, %{"player_id" => player_id}}, socket}
   end
 
