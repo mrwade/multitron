@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'underscore';
 import * as GameSocket from '../game-socket';
 import GameListener from './GameListener';
 import Play from './Play';
@@ -37,8 +38,10 @@ export default class App extends React.Component {
   }
 
   onJoin(name) {
+    const color = _.sample(["#f00","#0f0","#ff0","#0ff","#f0f","#fff"]);
+
     GameSocket.channel
-    .push('join', { name })
+    .push('join', { name, color })
     .receive('ok', ({ player_id }) => GameSocket.setPlayerId(player_id));
   }
 }

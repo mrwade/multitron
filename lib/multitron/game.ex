@@ -206,10 +206,4 @@ defmodule Multitron.Game do
       Enum.any?(positions, &(&1 == position))
     end)
   end
-
-  def random_color do
-    ["#f00","#0f0","#00f","#ff0","#0ff","#f0f","#fff"]
-    |> Enum.take_random(1)
-    |> List.first
-  end
 end
