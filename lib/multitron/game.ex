@@ -1,5 +1,5 @@
 defmodule Multitron.Game do
-  defstruct board_size: {200, 200}, players: %{}, positions: %{}
+  defstruct board_size: {140, 100}, players: %{}, positions: %{}
 
   @doc ~S"""
   ## Examples
@@ -20,8 +20,11 @@ defmodule Multitron.Game do
   end
 
   def spawn_player(game, player_id) do
+    {width, height} = game.board_size
     {name, color, _, _, direction} = game.players[player_id]
-    players = Map.put(game.players, player_id, {name, color, 100, 100, direction})
+    player = {name, color, round(width/2), round(height/2), direction}
+
+    players = Map.put(game.players, player_id, player)
     %{game |
       players: players,
       positions: Map.put(game.positions, player_id, [])}

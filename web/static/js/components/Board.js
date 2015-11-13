@@ -4,7 +4,7 @@ import _ from 'underscore';
 import { channel } from '../game-socket';
 import styles from './Board.scss';
 
-const SCALE = 3;
+const SCALE = 6;
 
 const SPAWN_KEY = 32;
 const DIRECTION_KEYS = {

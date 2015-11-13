@@ -4,7 +4,7 @@ defmodule Multitron.GameServer do
   alias Multitron.Game
   alias Multitron.GameSerializer
 
-  @interval 50
+  @interval 70
 
   def start_link() do
     Logger.info("Starting GameServer...")
