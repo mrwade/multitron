@@ -8,13 +8,16 @@ import styles from './App.scss';
 export default class App extends React.Component {
   render() {
     return (
-      <GameListener>
-        {game =>
-          <div>
-            {this.renderCurrentView(game)}
-          </div>
-        }
-      </GameListener>
+      <div className={styles.container}>
+        <div className={styles.title}>multitron</div>
+        <GameListener>
+          {game =>
+            <div>
+              {this.renderCurrentView(game)}
+            </div>
+          }
+        </GameListener>
+      </div>
     );
   }
 

@@ -8,7 +8,7 @@
     <meta name="author" content="">
 
     <title>Multitron</title>
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
+    <link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet" type="text/css">
   </head>
 
   <body>

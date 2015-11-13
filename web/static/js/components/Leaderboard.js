@@ -12,13 +12,15 @@ export default class Leaderboard extends React.Component {
 
     return (
       <table className={classNames(this.props.className, styles.leaderboard)}>
-        {_.map(players, player =>
-          <tr key={player.name} className={this.rowClassNames(player)}
-            style={this.rowStyle(player)}>
-            <td className={styles.scoreCell}>{playerScore(player)}</td>
-            <td className={styles.nameCell}>{player.name}</td>
-          </tr>
-        )}
+        <tbody>
+          {_.map(players, player =>
+            <tr key={player.name} className={this.rowClassNames(player)}
+              style={this.rowStyle(player)}>
+              <td className={styles.scoreCell}>{playerScore(player)}</td>
+              <td className={styles.nameCell}>{player.name}</td>
+            </tr>
+          )}
+        </tbody>
       </table>
     );
   }
