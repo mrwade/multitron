@@ -1,5 +1,9 @@
 # Multitron
 
+Video: https://www.youtube.com/watch?v=quRwsJuP1uc
+
+---
+
 To start your Phoenix app:
 
   1. Install dependencies with `mix deps.get`
